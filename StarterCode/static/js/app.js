@@ -21,7 +21,7 @@ function init() {
 
         // Chart defaults
         Charts(defaultname);
-        // MetaData(defaultname);
+        MetaData(defaultname);
     });
 };
 
@@ -78,13 +78,43 @@ function Charts(sampleitem) {
 
         var bubblelayout = {
             title: 'Bacteria Cultures Per Sample',
+            xaxis: {title: "OTU ID"},
+            font:{
+                family: 'Raleway, sans-serif',
+            }
         };
 
         Plotly.newPlot("bubble", bubblechart, bubblelayout);
     });
 };
+
+// Set function for metadata
+function MetaData(sampleitem) {
+
+    // Variables to hold array and filter for selected sample
+    d3.json("./data/samples.json").then((samplesdata) => {
+        var samplesmeta = samplesdata.metadata;
+        var arrayresult = samplesmeta.filter(sampleobj => sampleobj.id == sampleitem);
+
+        // Set default value 
+        var filteredresult = arrayresult[0];
+        console.log(filteredresult);   
+        
+        // Use d3 to select id from index file
+        var demoinfodisplay = d3.select("#sample-metadata");
+        demoinfodisplay.html("");
+
+        // Oject entries and for each to iterate thru keys and values
+        Object.entries(filteredresult).forEach(([key, value]) => {
+            demoinfodisplay.append("h5")
+            .text(`${key}: ${value}`);
+        })
+
+    });
+};
+
 // Set function to change chart info when new id selected
 function optionChanged(SelectedID) {
     Charts(SelectedID);
-    // MetaData(SelectedID);
+    MetaData(SelectedID);
 };
