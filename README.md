@@ -25,4 +25,4 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 ## Step 2: Deployment
 * Deploy your app to a free static page hosting service, such as GitHub Pages.
-  * Deployment Link: 
+  * Deployment Link: https://rls1316.github.io/plot.ly-challenge/ 
